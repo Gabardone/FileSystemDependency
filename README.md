@@ -1,4 +1,3 @@
-# BaseTemplate
-Basic Template Repo for further projects
+# FileSystemDependency
 
-Check `Tooling/Tooling.md` for instructions on setup of new projects based on the template.
+A simple `GlobalDependency`-compliant façade for access to the local file system.
