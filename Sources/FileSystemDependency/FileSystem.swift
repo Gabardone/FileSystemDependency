@@ -1,11 +1,25 @@
 //
 //  FileSystem.swift
-//  
+//
 //
 //  Created by Óscar Morales Vivó on 6/20/23.
 //
 
 import Foundation
+
+/**
+ General errors thrown by `FileSystem` implementations.
+
+ Most of the time errors thrown will be those that `FileManager` or the data read/write operations throw. But we can
+ perform some additional validation and post other exceptions when the system APIs don't or it's more useful to do so.
+ */
+public enum FileSystemError: Error {
+    /**
+     Implementations of `FileSystem` should validate that their `fileURL` parameters actually are file URLs. If they are
+     not this error will be thrown, with an associated value of the offending URL.
+     */
+    case notAFileURL(URL)
+}
 
 /**
  A façade for access to the local file system.
@@ -21,7 +35,7 @@ import Foundation
  little friction to obtaining the results and helps debounce requests for the same data. Writing operations are
  performed directly as it's not practical to debounce them at the file system access layer.
  */
-protocol FileSystem {
+public protocol FileSystem {
     /**
      Returns the data for a file at the given file URL.
 
@@ -29,8 +43,8 @@ protocol FileSystem {
      there is no actual data at the location.
 
      The exceptions thrown should be the same ones that `FileManager` would.
-     - Parameter fileURL: A file URL pointing to the file containing the data requested. The method will throw if it is not
-     a file URL.
+     - Parameter fileURL: A file URL pointing to the file containing the data requested. The method will throw if it is
+     not a file URL.
      - Returns: A task that returns the data in the file, or throws an error if there was none or it couldn't be
      accessed.
      */
