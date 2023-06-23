@@ -42,7 +42,13 @@ extension DefaultFileSystem: FileSystem {
         try validate(fileURL)
 
         try await Task {
-            try fileManager.removeItem(at: fileURL)
+            do {
+                try fileManager.removeItem(at: fileURL)
+            } catch let error as NSError
+                where error.domain == NSCocoaErrorDomain && error.code == NSFileNoSuchFileError {
+                // File not found is fine. We'll let it go.
+            }
+
         }.value
     }
 
