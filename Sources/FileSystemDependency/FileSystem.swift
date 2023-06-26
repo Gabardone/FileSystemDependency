@@ -53,7 +53,8 @@ public protocol FileSystem {
     /**
      Writes the given data to a file at the given file URL.
 
-     The method will overwrite any existing data at the location, no questions asked.
+     The method will overwrite any existing data at the location, no questions asked. It will also create any needed
+     directories along the path if they don't already exist.
 
      The method will `throw` if the URL parameter is invalid or if the write operation cannot be completed for any
      reason.
@@ -84,12 +85,4 @@ public protocol FileSystem {
      - Parameter fileURL: A URL pointing to where we want a directory to exist.
      */
     func makeDirectoryAt(fileURL: URL) async throws
-
-    /**
-     Returns a URL pointing to a temporary directory that the caller can safely use.
-
-     The default implementation of this just wraps `FileManager.temporaryDirectory` so the contract of that API
-     applies.
-     */
-    var temporaryDirectory: URL { get }
 }

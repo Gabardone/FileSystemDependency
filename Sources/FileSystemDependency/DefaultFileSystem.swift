@@ -34,7 +34,18 @@ extension DefaultFileSystem: FileSystem {
         try validate(fileURL)
 
         try await Task {
-            try data.write(to: fileURL, options: doNotOverwrite ? .withoutOverwriting : [])
+            do {
+                try data.write(to: fileURL, options: doNotOverwrite ? .withoutOverwriting : [])
+            } catch let error as NSError
+                where error.domain == NSCocoaErrorDomain && error.code == NSFileNoSuchFileError {
+                // If we get the no such file error it means the directory path where we want the file doesn't exist.
+                // We'll attempt to create it, then write. If either operation throws we 🤷🏽‍♂️
+                try fileManager.createDirectory(
+                    at: fileURL.deletingLastPathComponent(),
+                    withIntermediateDirectories: true
+                )
+                try data.write(to: fileURL, options: [])
+            }
         }.value
     }
 
@@ -58,9 +69,5 @@ extension DefaultFileSystem: FileSystem {
         try await Task {
             try fileManager.createDirectory(at: fileURL, withIntermediateDirectories: true)
         }.value
-    }
-
-    public var temporaryDirectory: URL {
-        fileManager.temporaryDirectory
     }
 }

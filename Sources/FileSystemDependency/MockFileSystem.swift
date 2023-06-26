@@ -33,8 +33,6 @@ public struct MockFileSystem {
     var removeFileAtOverride: ((URL) async throws -> Void)?
 
     var makeDirectoryAtOverride: ((URL) async throws -> Void)?
-
-    var temporaryDirectoryOverride: URL?
 }
 
 extension MockFileSystem: FileSystem {
@@ -68,14 +66,5 @@ extension MockFileSystem: FileSystem {
         }
 
         try await makeDirectoryAtOverride(fileURL)
-    }
-
-    public var temporaryDirectory: URL {
-        guard let temporaryDirectoryOverride else {
-            // We'll want to convert this to `XCTFail` once we have a mock builder macro.
-            preconditionFailure("temporaryDirectory not set")
-        }
-
-        return temporaryDirectoryOverride
     }
 }
