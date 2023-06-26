@@ -40,8 +40,11 @@ extension DefaultFileSystem: FileSystem {
                 where error.domain == NSCocoaErrorDomain && error.code == NSFileNoSuchFileError {
                 // If we get the no such file error it means the directory path where we want the file doesn't exist.
                 // We'll attempt to create it, then write. If either operation throws we 🤷🏽‍♂️
-                try fileManager.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-                try data.write(to: fileURL, options: doNotOverwrite ? .withoutOverwriting : [])
+                try fileManager.createDirectory(
+                    at: fileURL.deletingLastPathComponent(),
+                    withIntermediateDirectories: true
+                )
+                try data.write(to: fileURL, options: [])
             }
         }.value
     }
