@@ -15,10 +15,12 @@ public protocol FileSystemDependency: Dependencies {
     var fileSystem: any FileSystem { get }
 }
 
-extension GlobalDependencies: FileSystemDependency {
-    private static let defaultFileSystem: any FileSystem = DefaultFileSystem()
+public struct FileSystemDependencyKey: DependencyKey {
+    public static let defaultValue: any FileSystem = DefaultFileSystem()
+}
 
+extension GlobalDependencies: FileSystemDependency {
     public var fileSystem: any FileSystem {
-        resolveDependency(forKeyPath: \.fileSystem, defaultImplementation: Self.defaultFileSystem)
+        resolveDependencyFor(key: FileSystemDependencyKey.self)
     }
 }
