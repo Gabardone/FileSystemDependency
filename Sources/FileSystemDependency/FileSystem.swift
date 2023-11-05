@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@_exported import GlobalDependencies
 
 /**
  General errors thrown by `FileSystem` implementations.
@@ -35,6 +36,7 @@ public enum FileSystemError: Error {
  little friction to obtaining the results and helps debounce requests for the same data. Writing operations are
  performed directly as it's not practical to debounce them at the file system access layer.
  */
+@Dependency()
 public protocol FileSystem {
     /**
      Returns the data for a file at the given file URL.
@@ -85,4 +87,11 @@ public protocol FileSystem {
      - Parameter fileURL: A URL pointing to where we want a directory to exist.
      */
     func makeDirectoryAt(fileURL: URL) async throws
+}
+
+/**
+ Necessary adoption of `FileSystem.Dependency` by `GlobalDependencies`
+ */
+extension GlobalDependencies: FileSystem.Dependency {
+    public #GlobalDependency(type: FileSystem)
 }
