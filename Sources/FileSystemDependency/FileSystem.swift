@@ -95,3 +95,12 @@ public protocol FileSystem {
 extension GlobalDependencies: FileSystem.Dependency {
     public #GlobalDependency(type: FileSystem)
 }
+
+/**
+ Default value builder. Kept `private`
+ */
+private struct DefaultFileSystemValueFactory: DefaultDependencyValueFactory {
+    static func makeDefaultValue() -> DefaultFileSystem {
+        return DefaultFileSystem()
+    }
+}
