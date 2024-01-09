@@ -20,7 +20,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Gabardone/GlobalDependencies", .branch("MacroSupport"))
+        .package(url: "https://github.com/Gabardone/GlobalDependencies", .upToNextMajor(from: "2.0.0")),
+        // Depend on the swift documentation plugin to produce web-ready docs.
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.3.0")
     ],
     targets: [
         .target(

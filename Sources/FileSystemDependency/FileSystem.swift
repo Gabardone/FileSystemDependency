@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@_exported import GlobalDependencies
+import GlobalDependencies
 
 /**
  General errors thrown by `FileSystem` implementations.
