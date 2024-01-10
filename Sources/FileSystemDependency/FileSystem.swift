@@ -101,6 +101,6 @@ extension GlobalDependencies: FileSystem.Dependency {
  */
 private struct DefaultFileSystemValueFactory: DefaultDependencyValueFactory {
     static func makeDefaultValue() -> DefaultFileSystem {
-        return DefaultFileSystem()
+        DefaultFileSystem()
     }
 }

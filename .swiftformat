@@ -1,6 +1,10 @@
 # file options
 
---swiftversion 5.7
+--swiftversion 5.9
+
+# Exclude tutorial code and build artifacts from command line swift builds
+
+--exclude **/Documentation.docc,.build
 
 # Fix rules that conflict with swiftlint defaults.
 --commas inline # Swiftlint calls for no final comma on collections.
