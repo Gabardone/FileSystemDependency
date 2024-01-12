@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DefaultFileSystem {
+struct DefaultFileSystem {
     public init(fileManager: FileManager = .default) {
         self.fileManager = fileManager
     }
