@@ -11,6 +11,7 @@ let package = Package(
         .macCatalyst(.v13),
         .macOS(.v10_15),
         .tvOS(.v13),
+        .visionOS(.v1),
         .watchOS(.v6)
     ],
     products: [
@@ -20,7 +21,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Gabardone/GlobalDependencies", .upToNextMajor(from: "2.0.0")),
+        .package(url: "https://github.com/Gabardone/GlobalDependencies", .upToNextMajor(from: "2.0.1")),
         // Depend on the swift documentation plugin to produce web-ready docs.
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.3.0")
     ],
